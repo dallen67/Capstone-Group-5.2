@@ -11,15 +11,6 @@ def sendData(data, port, baud): # Start reading at the next function, not this o
     # Serial can use either but defaults to /r/n
     ser.write(data.encode()) # This writes the data to the port, it must be encodes as bytes before it can be sent over serial
 
-def receiveData: #my attempt to write a receive function for the program, Drew Allen
-    ser = serial.Serial()
-    ser.port = ""
-    ser.baudrate = 115200
-    ser.timeout = 0
-    line = ser.readline()
-    print(line)
-
-
 def main():
     spObject = serial.tools.list_ports.comports() # This function will return all the serial ports on the system, but it returns them as an object
     serialPorts = [] # This is a list to store the serial port names
@@ -45,7 +36,5 @@ def main():
     sendData(data, tty, 115200) # Calls the send function and passes the data the user wants to send, the port they want to use, and the speed
 
     # I didn't provide any confirmation of success here. You'll want to listen on the other end of the serial cable to make sure your data goes through.
-
-    receiveData()
 
 main()
