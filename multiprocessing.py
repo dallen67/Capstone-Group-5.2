@@ -43,7 +43,7 @@ def main():
         for i in spObject2:
             serialPorts2.append(i.device)
         print('Available serial ports:')
-        for i in range(len(serialPort2s)):
+        for i in range(len(serialPorts2)):
             print('%i. %s' %(i+1,serialPorts2[i])) 
         selectedPort2 = int(input('Please select a port: '))
         while selectedPort2-1 not in range(len(serialPorts2)):
