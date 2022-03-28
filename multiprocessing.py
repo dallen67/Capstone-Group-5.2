@@ -21,6 +21,7 @@ def receiveData(port, baud):
     ser.timeout = 0
     line = ser.readline()
     print(line.decode())
+    
 def main():
     if __name__ == "__main__":
         spObject = serial.tools.list_ports.comports()
@@ -37,8 +38,22 @@ def main():
         tty = serialPorts[selectedPort-1] 
         data = input('Please enter the data you want to send over the serial port: ')
         
+        spObject2 = serial.tools.list_ports.comports()
+        serialPorts2 = []
+        for i in spObject2:
+            serialPorts2.append(i.device)
+        print('Available serial ports:')
+        for i in range(len(serialPort2s)):
+            print('%i. %s' %(i+1,serialPorts2[i])) 
+        selectedPort2 = int(input('Please select a port: '))
+        while selectedPort2-1 not in range(len(serialPorts2)):
+            print('Invalid input')
+            selectedPort2 = input('Please select a port: ')
+        
+        lport = serialPorts2[selectedPort2-1]
+        
         p1 = Process(target=sendData(data, tty, 115200))
-        p2 = Process(target=receiveData("COM6", 115200))
+        p2 = Process(target=receiveData(lport, 115200))
         
         p1.start()
         p2.start()
