@@ -8,9 +8,9 @@ def sendData(data, port, baud):
     ser = serial.Serial(port, baud)    
    
     try:
-        ser.isOpen()
+        ser.Open()
     except Exception:
-            pass
+        pass
        
     data += "\r\n"
     ser.write(data.encode()) 
@@ -21,11 +21,14 @@ def receiveData(port, baud):
     ser.timeout = 0
     line = ser.readline()
     print(line.decode())
+
+    try:
+    	ser.close()
+    except Exception:
+    	pass
     
 def main():
-    reset_input_buffer()
-    reset_output_buffer()    
-    
+
     if __name__ == "__main__":
         spObject = serial.tools.list_ports.comports()
         serialPorts = []
