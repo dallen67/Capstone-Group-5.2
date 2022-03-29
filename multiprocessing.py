@@ -23,6 +23,9 @@ def receiveData(port, baud):
     print(line.decode())
     
 def main():
+    reset_input_buffer()
+    reset_output_buffer()    
+    
     if __name__ == "__main__":
         spObject = serial.tools.list_ports.comports()
         serialPorts = []
