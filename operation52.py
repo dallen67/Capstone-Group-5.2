@@ -17,7 +17,7 @@ def sendData(data, port, baud):     #the send data function receives the data, p
         data += ''
         print()
         print("Data that was sent: ", data)    #we left this here for confirmation of what was sent.
-        ser.write(data.encode())
+        ser.write(data.encode())                #pySerial requires on Python 3 that all data that is sent must be encoded. It will not let you send any data with encoding.
         ser.close()                             #closes the port immediately after everything is sent.
 
 
@@ -32,7 +32,7 @@ def receiveData(port, baud):
         
         line = ser.read_until(expected=b'!END!')
         print()
-        print("Data that was received")             #everything is pretty the much the same as the send function
+        print("Data that was received")             #the receive function is very similiar to the send function.
         print(line.decode())
         ser.close()
 
