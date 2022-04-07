@@ -25,7 +25,7 @@ def sendData(data, port, baud):     #the send data function receives the data, p
 def receiveData(port, baud):
     time.sleep(1)
     with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:
-        ser.reset_input_buffer()
+        ser.reset_input_buffer()    #these four lines ensure that the receiving port is clear of any previous data
         ser.reset_output_buffer()               
         ser.flushInput()
         ser.flushOutput()
@@ -45,11 +45,11 @@ def main():
         serialPorts = []                  #This is an empty list to store the serial port names
         print()
         for i in spObject:
-            serialPorts.append(i.device)    #every serial port name that is found on the system will added to the serialPorts list from above.
+            serialPorts.append(i.device)    #every serial port name that is found on the system will be added to the serialPorts list from above.
         print('Available ports:')           #this prints all available ports
         for i in range(len(serialPorts)):
             print('%i. %s' % (i+1, serialPorts[i]))
-        selectedPort = int(input('Please select a port to send data to: '))      #this asks for user input to select the designated port to send data to.
+        selectedPort = int(input('Please select a port to send data to: '))      #this asks for user input to select the designated port to send data to for the send function.
         while selectedPort-1 not in range(len(serialPorts)):
             print('Invalid input')
             selectedPort = input('Please select a port: ')
@@ -58,7 +58,7 @@ def main():
             'Please enter the data you want to send over the serial port: ')
         print()
 
-        spObject2 = serial.tools.list_ports.comports()
+        spObject2 = serial.tools.list_ports.comports()          #this asks for user input to select the designated port to send data to for the receive function.
         serialPorts2 = []
         for i in spObject2:
             serialPorts2.append(i.device)
@@ -72,7 +72,7 @@ def main():
 
         lport = serialPorts2[selectedPort2-1]
 
-        p1 = Process(target=sendData(data, tty, 115200))
+        p1 = Process(target=sendData(data, tty, 115200)) #here we start the multiprocessing
         p2 = Process(target=receiveData(lport, 115200))
 
         p2.start()
@@ -80,7 +80,7 @@ def main():
 
         p2.join()
         p1.join()
-        print("Done!")
+        print("Done!") #finally we use this print statement to confirm that the code finished executing successfully
         print()
 
 
