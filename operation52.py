@@ -1,38 +1,38 @@
 from doctest import IGNORE_EXCEPTION_DETAIL
 from logging import exception
 import serial
-import serial.tools.list_ports
-# Here is the link to the documentation I referenced: https://docs.python.org/3/library/multiprocessing.html, Drew
+import serial.tools.list_ports      
+               #All of these modules are required for the script to run. We also needed multiprocessing in order to run all of the functions at once.
 from multiprocessing import Process
 import time
 
 
-def sendData(data, port, baud):
-    time.sleep(1)
-    with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:
-        ser.reset_input_buffer()
+def sendData(data, port, baud):     #the send data function receives the data, port, and baud (automatically assigned) from the user input below.
+    time.sleep(1)                   #suspends execution for the given number of seconds
+    with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:   
+        ser.reset_input_buffer()   #resets any input/output buffer that might still be lingering in order to avoid any potential errors and such.
         ser.reset_output_buffer()
         ser.flushInput()
         ser.flushOutput()
         data += ''
         print()
-        print("Data that was sent: ", data)
+        print("Data that was sent: ", data)    #we left this here for confirmation of what was sent.
         ser.write(data.encode())
-        ser.close()
+        ser.close()                             #closes the port immediately after everything is sent.
 
 
 def receiveData(port, baud):
     time.sleep(1)
     with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:
         ser.reset_input_buffer()
-        ser.reset_output_buffer()
+        ser.reset_output_buffer()               
         ser.flushInput()
         ser.flushOutput()
         
         
         line = ser.read_until(expected=b'!END!')
         print()
-        print("Data that was received")
+        print("Data that was received")             #everything is pretty the much the same as the send function
         print(line.decode())
         ser.close()
 
