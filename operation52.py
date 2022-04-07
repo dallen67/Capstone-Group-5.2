@@ -40,15 +40,16 @@ def receiveData(port, baud):
 def main():
 
     if __name__ == "__main__":
-        spObject = serial.tools.list_ports.comports()
-        serialPorts = []
+        spObject = serial.tools.list_ports.comports()          #This function will return all the serial ports on the system, but it returns them as an object
+
+        serialPorts = []                  #This is an empty list to store the serial port names
         print()
         for i in spObject:
-            serialPorts.append(i.device)
-        print('Available ports:')
+            serialPorts.append(i.device)    #every serial port name that is found on the system will added to the serialPorts list from above.
+        print('Available ports:')           #this prints all available ports
         for i in range(len(serialPorts)):
             print('%i. %s' % (i+1, serialPorts[i]))
-        selectedPort = int(input('Please select a port to send data to: '))
+        selectedPort = int(input('Please select a port to send data to: '))      #this asks for user input to select the designated port to send data to.
         while selectedPort-1 not in range(len(serialPorts)):
             print('Invalid input')
             selectedPort = input('Please select a port: ')
