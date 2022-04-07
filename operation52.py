@@ -14,8 +14,9 @@ def sendData(data, port, baud):     #the send data function receives the data, p
         ser.reset_output_buffer()
         ser.flushInput()
         ser.flushOutput()
+        
         data += ''
-        print()
+        print()                               #there are various empty print statements in the script, so that the user input and such looks more organzied and not so crammed.
         print("Data that was sent: ", data)    #we left this here for confirmation of what was sent.
         ser.write(data.encode())                #pySerial requires on Python 3 that all data that is sent must be encoded. It will not let you send any data with encoding.
         ser.close()                             #closes the port immediately after everything is sent.
@@ -28,7 +29,6 @@ def receiveData(port, baud):
         ser.reset_output_buffer()               
         ser.flushInput()
         ser.flushOutput()
-        
         
         line = ser.read_until(expected=b'!END!')
         print()
