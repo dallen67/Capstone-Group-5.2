@@ -5,6 +5,7 @@ import serial.tools.list_ports
                #All of these modules are required for the script to run. We also needed multiprocessing in order to run all of the functions at once.
 from multiprocessing import Process
 import time
+from datetime import datetime
 
 
 def sendData(data, port, baud):     #the send data function receives the data, port, and baud (automatically assigned) from the user input below.
@@ -23,6 +24,14 @@ def sendData(data, port, baud):     #the send data function receives the data, p
 
 
 def receiveData(port, baud):
+  
+    print("Start", datetime.now())
+    ans = str()
+    while ans != 'end': 
+      ans = input()
+      ans = ans.lower()
+    print("End", datetime.now())
+  
     time.sleep(1)
     with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:
         ser.reset_input_buffer()    #these four lines ensure that the receiving port is clear of any previous data
