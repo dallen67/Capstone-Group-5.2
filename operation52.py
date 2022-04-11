@@ -25,12 +25,7 @@ def sendData(data, port, baud):     #the send data function receives the data, p
 
 def receiveData(port, baud):
   
-    print("Start", datetime.now())
-    ans = str()
-    while ans != 'end': 
-      ans = input()
-      ans = ans.lower()
-    print("End", datetime.now())
+
   
     time.sleep(1)
     with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:
@@ -85,6 +80,14 @@ def main():
         p2 = Process(target=receiveData(lport, 115200))
 
         p2.start()
+        
+        print("Start", datetime.now())
+        ans = str()
+        while ans != 'end': 
+            ans = input()
+            ans = ans.lower()
+    print("End", datetime.now())
+        
         p1.start()
 
         p2.join()
