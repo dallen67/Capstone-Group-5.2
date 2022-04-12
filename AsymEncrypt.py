@@ -63,7 +63,7 @@ def main():
         data = input('Please enter the data you want to send over the serial port: ')
         data2 = data.encode()
         
-        data3 = rsa.encrypt(data, publicKey)
+        data3 = rsa.encrypt(data2, publicKey)
         
         print()
 
