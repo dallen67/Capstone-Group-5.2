@@ -31,6 +31,7 @@ def receiveData(port, baud):
         ser.flushInput()
         ser.flushOutput()
         
+        privateKey = rsa.newkeys(512)
         line = ser.read_until(expected=b'!END!')
         line2 = line.decode()
         line3 = rsa.decrypt(line2, privateKey)
@@ -58,7 +59,7 @@ def main():
             selectedPort = input('Please select a port: ')
         tty = serialPorts[selectedPort-1]
         
-        publicKey, privateKey = rsa.newkeys(512)
+        publicKey = rsa.newkeys(512)
         
         data = input('Please enter the data you want to send over the serial port: ')
         data2 = data.encode()
