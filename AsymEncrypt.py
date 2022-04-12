@@ -15,7 +15,7 @@ def sendData(data3, port, baud):
         ser.flushInput()
         ser.flushOutput()
         
-        data += ''
+        data3 += '/n'
         print()                              
         print("Data that was sent: ", data3)    
         ser.write(data3)               
