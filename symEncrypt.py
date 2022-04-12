@@ -5,7 +5,7 @@ import serial.tools.list_ports
                #All of these modules are required for the script to run. We also needed multiprocessing in order to run all of the functions at once.
 from multiprocessing import Process
 import time
-from cryptography.fernet import fernet
+from cryptography.fernet import Fernet
 
 
 def sendData(data2, port, baud):     #the send data function receives the data, port, and baud (automatically assigned) from the user input below.
