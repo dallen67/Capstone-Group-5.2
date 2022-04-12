@@ -23,7 +23,7 @@ def sendData(data, port, baud):
         key2 = Fernet(key)
         data2 = data.encode()
 
-        ser.write(data3.encrypt(data2))               
+        ser.write(key2.encrypt(data2))               
         ser.close()                             
 
 
