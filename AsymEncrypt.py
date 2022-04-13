@@ -5,7 +5,7 @@ import serial.tools.list_ports
 from multiprocessing import Process
 import time
 import rsa
-
+from concurrent.futures import ProcessPoolExecutor
 
 def sendData(data3, port, baud):     
     time.sleep(1)                   
@@ -82,14 +82,10 @@ def main():
 
         lport = serialPorts2[selectedPort2-1]
 
-        p1 = Process(target=sendData(data, tty, 115200)) 
-        p2 = Process(target=receiveData(lport, 115200))
 
-        p2.start()  
-        p1.start()
-
-        p2.join()
-        p1.join()
+        with ProcessPoolExecutor() as executor:
+            p1 = executor.submit(receiveData, lport, 115200)
+            p2 = executor.submit(sendData, data, tty, 115200)
         print("Done!") 
         print()
 
