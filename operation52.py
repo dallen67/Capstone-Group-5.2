@@ -6,6 +6,7 @@ import serial.tools.list_ports
 from multiprocessing import Process
 import time
 from datetime import datetime
+import threading
 
 
 def sendData(data, port, baud):     #the send data function receives the data, port, and baud (automatically assigned) from the user input below.
@@ -76,22 +77,23 @@ def main():
 
         lport = serialPorts2[selectedPort2-1]
 
-        p1 = Process(target=sendData(data, tty, 115200)) #here we start the multiprocessing
-        p2 = Process(target=receiveData(lport, 115200))
-
-        p2.start()
+        t1 = threading.Thread(target=sendData(data, tty, 115200))
+        t2 = threading.Thread(target=receiveData(lport, 115200))
         
-        print("Start", datetime.now())
-        ans = str()
-        while ans != 'end': 
-            ans = input()
-            ans = ans.lower()
-        print("End", datetime.now())
+        t1.start()
+        t2.start()
         
-        p1.start()
+        t1.join()
+        t2.join()
+        
+        #p1 = Process(target=sendData(data, tty, 115200)) #here we start the multiprocessing
+        #p2 = Process(target=receiveData(lport, 115200))
 
-        p2.join()
-        p1.join()
+        #p2.start()
+        #p1.start()
+
+        #p2.join()
+        #p1.join()
         print("Done!") #finally we use this print statement to confirm that the code finished executing successfully
         print()
 
