@@ -7,6 +7,8 @@ from multiprocessing import Process
 import time
 from datetime import datetime
 import threading
+#Test different way of handling processes
+from concurrent.futures import ProcessPoolExecutor
 
 
 def sendData(data, port, baud):     #the send data function receives the data, port, and baud (automatically assigned) from the user input below.
@@ -77,14 +79,14 @@ def main():
 
         lport = serialPorts2[selectedPort2-1]
 
-        t1 = threading.Thread(target=sendData(data, tty, 115200))
-        t2 = threading.Thread(target=receiveData(lport, 115200))
+        # t1 = threading.Thread(target=sendData(data, tty, 115200))
+        # t2 = threading.Thread(target=receiveData(lport, 115200))
         
-        t2.start()
-        t1.start()
+        # t2.start()
+        # t1.start()
         
-        t1.join()
-        t2.join()
+        # t1.join()
+        # t2.join()
         
         #p1 = Process(target=sendData(data, tty, 115200)) #here we start the multiprocessing
         #p2 = Process(target=receiveData(lport, 115200))
@@ -94,6 +96,12 @@ def main():
 
         #p2.join()
         #p1.join()
+
+        with ProcessPoolExecutor() as executor:
+            p1 = executor.submit(receiveData, lport, 115200)
+            p2 = executor.submit(sendData, data, tty, 115200)
+        
+
         print("Done!") #finally we use this print statement to confirm that the code finished executing successfully
         print()
 
