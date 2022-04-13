@@ -80,8 +80,8 @@ def main():
         t1 = threading.Thread(target=sendData(data, tty, 115200))
         t2 = threading.Thread(target=receiveData(lport, 115200))
         
-        t1.start()
         t2.start()
+        t1.start()
         
         t1.join()
         t2.join()
