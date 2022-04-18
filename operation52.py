@@ -4,7 +4,6 @@ from multiprocessing import Process
 import time
 from concurrent.futures import ProcessPoolExecutor
 
-
 def sendData(data, port, baud):
     time.sleep(1)
     with serial.Serial(port=port, baudrate=baud, timeout=1) as ser:   
@@ -84,6 +83,5 @@ def main():
         print()
         print("Elapsed Time: ", et-ft)
         print()
-
 
 main()
