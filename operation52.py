@@ -32,11 +32,11 @@ def receiveData(port, baud):
 
         line = ser.read_until(expected=b'!END!')              #This is crucial in order to read everything that was sent in the data. 
         print()
-        print("Data that was received: ", line.decode())          #Just as it was encoded, it must decoded in order to be printed in a readable format.  
+        print("Data that was received: ", line.decode())          #Just as it was encoded, it must be decoded in order to be printed in a readable format.  
         ct = time.time()
         print("Current Time:", ct)
         
-        ser.close()                                            #Same configuration is done here from before.
+        ser.close()                                            #Same configuration is done here as from before.
         return ct
 
 def main():
